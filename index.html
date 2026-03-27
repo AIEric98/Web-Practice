@@ -1,60 +1,253 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Styled Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascentium | Global Sales Gateway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
-        /* This is CSS - it tells the browser how to look */
+        /* --- CSS (The Style) --- */
+        :root {
+            --primary: #002147; /* Ascentium Navy */
+            --accent: #00a3e0;  /* Bright Blue */
+            --bg: #f4f7f9;
+            --text: #333;
+            --white: #ffffff;
+        }
+
         body {
-            background-color: #f0f2f5; /* A light grey background */
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+            font-weight: 300;
+            margin-left: 5px;
+        }
+
+        .hero {
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 60px 20px 100px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 10px auto 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+        }
+
+        #countrySearch {
+            width: 100%;
+            padding: 18px 25px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centers everything horizontally */
-            justify-content: center; /* Centers everything vertically */
-            height: 100vh; /* Makes the body take up the full screen height */
-            margin: 0;
+            justify-content: space-between;
+            border: 1px solid #e1e8ed;
         }
 
-        h1 {
-            color: #2c3e50; /* A nice dark blue */
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,33,71,0.1);
+            border-color: var(--accent);
         }
 
-        button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        .card h3 {
+            margin: 0 0 10px 0;
+            color: var(--primary);
+            font-size: 1.4rem;
         }
 
-        button:hover {
-            background-color: #2980b9; /* Changes color when you hover over it */
+        .card p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .brand-tag {
+            font-size: 0.75rem;
+            background: #f0f4f8;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--primary);
+            align-self: flex-start;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
 
-    <h1>Interactive World!</h1>
-    <p>Click the button to change my mood.</p>
-    
-    <button id="colorBtn">Change Color</button>
+    <nav class="navbar">
+        <div class="logo">ASCENTIUM<span>SALES GATEWAY</span></div>
+    </nav>
+
+    <header class="hero">
+        <h1>Global Network</h1>
+        <p>Access local expertise and regional compliance portals across the Ascentium ecosystem.</p>
+    </header>
+
+    <main class="container">
+        <div class="search-container">
+            <input type="text" id="countrySearch" placeholder="Search by country or region..." onkeyup="filterCountries()">
+        </div>
+
+        <div class="grid" id="countryGrid">
+            <a href="https://incorp.asia/singapore/" class="card" target="_blank">
+                <div>
+                    <h3>Singapore</h3>
+                    <p>Corporate services, tax, and payroll outsourcing in Asia's financial hub.</p>
+                </div>
+                <span class="brand-tag">InCorp Singapore</span>
+            </a>
+
+            <a href="https://incorp.asia/australia/" class="card" target="_blank">
+                <div>
+                    <h3>Australia</h3>
+                    <p>Expansion support, accounting, and tax compliance for the Australian market.</p>
+                </div>
+                <span class="brand-tag">InCorp Australia</span>
+            </a>
+
+            <a href="https://linksinternational.com/hong-kong-hr-outsourcing/" class="card" target="_blank">
+                <div>
+                    <h3>Hong Kong</h3>
+                    <p>Specialized HR, payroll, and fund administration services.</p>
+                </div>
+                <span class="brand-tag">Links International</span>
+            </a>
+
+            <a href="https://incorp.asia/vietnam/" class="card" target="_blank">
+                <div>
+                    <h3>Vietnam</h3>
+                    <p>FDI advisory, company incorporation, and licensing experts.</p>
+                </div>
+                <span class="brand-tag">InCorp Vietnam</span>
+            </a>
+
+            <a href="https://vz.ae/" class="card" target="_blank">
+                <div>
+                    <h3>UAE</h3>
+                    <p>The leading platform for company setup and licensing in Dubai and the UAE.</p>
+                </div>
+                <span class="brand-tag">Virtuzone</span>
+            </a>
+
+            <a href="https://incorp.asia/malaysia/" class="card" target="_blank">
+                <div>
+                    <h3>Malaysia</h3>
+                    <p>Comprehensive company secretarial and business support services.</p>
+                </div>
+                <span class="brand-tag">InCorp Malaysia</span>
+            </a>
+
+            <a href="https://incorp.asia/philippines/" class="card" target="_blank">
+                <div>
+                    <h3>Philippines</h3>
+                    <p>Business registration and payroll support for the Philippine market.</p>
+                </div>
+                <span class="brand-tag">InCorp Philippines</span>
+            </a>
+
+            <a href="https://incorp.asia/indonesia/" class="card" target="_blank">
+                <div>
+                    <h3>Indonesia</h3>
+                    <p>Specialized support for market entry and local compliance in Indonesia.</p>
+                </div>
+                <span class="brand-tag">InCorp Indonesia</span>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Ascentium Group. Internal Use Only.
+    </footer>
 
     <script>
-        // 1. Find the button and the body in the document
-        const btn = document.getElementById('colorBtn');
-        const body = document.querySelector('body');
+        /* --- JavaScript (The Logic) --- */
+        function filterCountries() {
+            let input = document.getElementById('countrySearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
 
-        // 2. Create a function to generate a random color
-        function changeBackground() {
-            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-            body.style.backgroundColor = randomColor;
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].textContent.toLowerCase();
+                if (text.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
         }
-
-        // 3. Tell the button to run that function when clicked
-        btn.addEventListener('click', changeBackground);
     </script>
-
 </body>
 </html>
