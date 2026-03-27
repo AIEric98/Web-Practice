@@ -1,2 +1,60 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Styled Website</title>
+    <style>
+        /* This is CSS - it tells the browser how to look */
+        body {
+            background-color: #f0f2f5; /* A light grey background */
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers everything horizontally */
+            justify-content: center; /* Centers everything vertically */
+            height: 100vh; /* Makes the body take up the full screen height */
+            margin: 0;
+        }
+
+        h1 {
+            color: #2c3e50; /* A nice dark blue */
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* Changes color when you hover over it */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Interactive World!</h1>
+    <p>Click the button to change my mood.</p>
+    
+    <button id="colorBtn">Change Color</button>
+
+    <script>
+        // 1. Find the button and the body in the document
+        const btn = document.getElementById('colorBtn');
+        const body = document.querySelector('body');
+
+        // 2. Create a function to generate a random color
+        function changeBackground() {
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            body.style.backgroundColor = randomColor;
+        }
+
+        // 3. Tell the button to run that function when clicked
+        btn.addEventListener('click', changeBackground);
+    </script>
+
+</body>
+</html>
