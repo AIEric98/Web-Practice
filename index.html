@@ -3,272 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL Manager | Interactive Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Eric & Vicky | Our Roadmap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-orange: #ff5a00;
-            --bg-light: #f9fafb;
-            --border-color: #e5e7eb;
-            --text-main: #111827;
-            --text-muted: #6b7280;
+            --bg-color: #fdfaf7;
+            --accent-rose: #e7c6c6;
+            --line-color: #d9c8b7;
+            --text-main: #1a1a1a;
+            --glass-bg: rgba(255, 255, 255, 0.6);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: var(--text-main);
+            background-color: var(--bg-color);
             margin: 0;
-            padding: 0;
-        }
-
-        /* Top Header Bar */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 24px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-icon {
-            background: var(--primary-orange);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-
-        .header-title {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .sync-info {
-            font-size: 12px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        /* Tabs Section */
-        .tabs-container {
-            padding: 10px 24px;
-            display: flex;
-            gap: 20px;
-            border-bottom: 1px solid var(--border-color);
-            background: #fff;
-        }
-
-        .tab {
-            font-size: 13px;
-            padding: 8px 0;
-            cursor: pointer;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .tab:hover { color: var(--text-main); }
-
-        .tab.active {
-            color: var(--primary-orange);
-            border-bottom: 2px solid var(--primary-orange);
-            font-weight: 600;
-        }
-
-        .tab-count {
-            background: #eee;
-            padding: 1px 6px;
-            border-radius: 10px;
-            font-size: 11px;
+            overflow-y: hidden; 
+            overflow-x: auto;
             color: var(--text-main);
         }
 
-        .tab.active .tab-count {
-            background: var(--primary-orange);
-            color: white;
-        }
-
-        /* Search Area */
-        .search-area {
-            padding: 16px 24px;
-            display: flex;
+        .wrapper {
+            display: inline-flex;
             align-items: center;
-            gap: 15px;
+            height: 100vh;
+            padding: 0 150px;
+            position: relative;
+            min-width: 5200px;
         }
 
-        .search-input {
-            width: 350px;
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 13px;
-            outline: none;
-        }
+        .hero-section { width: 550px; padding-right: 150px; flex-shrink: 0; z-index: 10; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; margin: 0; line-height: 1.1; }
+        .couple-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; color: var(--accent-rose); margin-top: 15px; display: block; }
 
-        /* Table Section */
-        .table-container { width: 100%; overflow-x: auto; }
-
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-
-        th {
-            text-align: left;
-            padding: 12px 24px;
-            background: #fafafa;
-            color: var(--text-muted);
-            font-weight: 500;
-            border-bottom: 1px solid var(--border-color);
-            text-transform: uppercase;
-        }
-
-        td { padding: 12px 24px; border-bottom: 1px solid var(--border-color); }
-
-        .status-pill {
-            background: #f3f4f6;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
+        /* Music Start Button */
+        .music-start-btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: var(--accent-rose);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
-        }
-
-        .btn {
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 12px;
             cursor: pointer;
-            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(231, 198, 198, 0.4);
+        }
+        .music-start-btn:hover { transform: scale(1.05); background: #deb4b4; }
+
+        .roadmap-svg {
+            position: absolute;
+            top: 50%;
+            left: 700px;
+            width: 3800px;
+            height: 200px;
+            fill: none;
+            stroke: var(--line-color);
+            stroke-width: 3;
+            stroke-dasharray: 10, 10;
+            transform: translateY(-50%);
+            z-index: 1;
         }
 
-        .btn-orange { background: var(--primary-orange); color: white; border: none; }
+        .event-node {
+            position: relative;
+            z-index: 10;
+            width: 320px;
+            flex-shrink: 0;
+            margin-right: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-node:nth-child(odd) { margin-top: -300px; }
+        .event-node:nth-child(even) { margin-top: 300px; }
+
+        .image-preview {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            border: 6px solid #fff;
+        }
+
+        .event-node:hover .image-preview { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        .date-label { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 2rem; color: var(--accent-rose); }
+        .location-label { font-weight: 600; border-bottom: 2px solid var(--accent-rose); display: inline-block; margin-bottom: 10px; }
+
+        .finale-section {
+            margin-left: 100px;
+            text-align: center;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 1000px;
+            z-index: 10;
+        }
+
+        .image-upload-box {
+            min-height: 450px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 25px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(217, 200, 183, 0.3);
+        }
+
+        .couple-image { max-width: 90%; max-height: 500px; border-radius: 15px; display: none; margin-top: 20px; }
+
+        .upload-trigger {
+            cursor: pointer;
+            padding: 40px 60px;
+            border: 2px dashed var(--accent-rose);
+            border-radius: 20px;
+            color: var(--accent-rose);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            background: var(--glass-bg);
+            transition: 0.3s;
+        }
+
+        .controls { margin-top: 20px; display: none; gap: 15px; }
+        .btn { padding: 12px 25px; border-radius: 50px; font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; border: none; transition: 0.2s; }
+        .send-btn { background-color: var(--accent-rose); color: white; }
+        .reset-btn { background-color: #eee; color: #666; }
+
+        .adventure-tagline { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--accent-rose); font-style: italic; margin-top: 30px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="logo-section">
-            <div class="logo-icon">EL</div>
-            <span class="header-title">EL Manager | <span style="font-weight: 300; color: #666;">Automation 2026</span></span>
+    <div id="player" style="display:none;"></div>
+
+    <div class="wrapper">
+        <div class="hero-section">
+            <h1>Our Roadmap to the World</h1>
+            <span class="couple-name">Eric & Vicky</span>
+            <button id="startBtn" class="music-start-btn" onclick="startJourney()">Start Our Journey ♪</button>
         </div>
-        <div class="sync-info">
-            <span id="sync-time">Last sync: Today, 08:17 am</span>
-            <button class="btn btn-orange">↑ Sync Excel</button>
+
+        <svg class="roadmap-svg" viewBox="0 0 3800 200" preserveAspectRatio="none">
+            <path d="M0,100 C200,200 400,0 600,100 C800,200 1000,0 1200,100 C1400,200 1600,0 1800,100 C2000,200 2200,0 2400,100 C2600,200 2800,0 3000,100 C3200,200 3400,0 3800,100" />
+        </svg>
+
+        <div class="event-node">
+            <div class="image-preview" style="background-image: url('https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?q=80&w=600');"></div>
+            <span class="date-label">June 2022</span>
+            <span class="location-label">Tinder</span>
+            <p style="font-size:0.9rem; color:#666;">Where it all began.</p>
         </div>
-    </div>
 
-    <div class="tabs-container" id="tabs">
-        <div class="tab active" onclick="switchTab('All')">All <span class="tab-count">515</span></div>
-        <div class="tab" onclick="switchTab('Pending')">Pending <span class="tab-count">54</span></div>
-        <div class="tab" onclick="switchTab('Updated')">Updated <span class="tab-count">12</span></div>
-        <div class="tab" onclick="switchTab('Generated')">Generated <span class="tab-count">6</span></div>
-        <div class="tab" onclick="switchTab('Sent')">Sent <span class="tab-count">409</span></div>
-        <div class="tab" onclick="switchTab('No SA')">No SA <span class="tab-count">46</span></div>
-    </div>
+        <div class="event-node">
+            <div class="image-preview" style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600');"></div>
+            <span class="date-label">Oct 2022</span>
+            <span class="location-label">France</span>
+            <p style="font-size:0.9rem; color:#666;">Exploring Paris together.</p>
+        </div>
 
-    <div class="search-area">
-        <input type="text" id="elSearch" class="search-input" placeholder="Search data..." onkeyup="filterTable()">
-        <span id="client-count" style="color: #999; font-size: 12px;">515 clients shown</span>
-    </div>
+        <div class="event-node">
+            <div class="image-preview" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600');"></div>
+            <span class="date-label">June 2023</span>
+            <span class="location-label">Tokyo</span>
+            <p style="font-size:0.9rem; color:#666;">Neon lights and city nights.</p>
+        </div>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Code ↑</th>
-                    <th>Client</th>
-                    <th>Group</th>
-                    <th>Status</th>
-                    <th>Total Fees</th>
-                    <th>Company A</th>
-                    <th>Company B</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                </tbody>
-        </table>
+        <div class="event-node">
+            <div class="image-preview" style="background-image: url('https://images.unsplash.com/photo-1596400030017-744040a45e45?q=80&w=600');"></div>
+            <span class="date-label">Oct 2023</span>
+            <span class="location-label">Tainan</span>
+            <p style="font-size:0.9rem; color:#666;">The historic heart of Taiwan.</p>
+        </div>
+
+        <div class="event-node">
+            <div class="image-preview" style="background-image: url('https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=600');"></div>
+            <span class="date-label">March 2026</span>
+            <span class="location-label">Sydney</span>
+            <p style="font-size:0.9rem; color:#666;">Touching down in Australia.</p>
+        </div>
+
+        <div class="finale-section">
+            <div class="image-upload-box">
+                <img id="finalImg" src="#" alt="Our Adventure" class="couple-image">
+                <label id="uploadBtn" for="fileInput" class="upload-trigger">upload your destination or your end story</label>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFile(this)">
+                <div id="controls" class="controls">
+                    <button class="btn send-btn" onclick="sendEmail()">Email to Eric</button>
+                    <button class="btn reset-btn" onclick="resetFinale()">Change Story</button>
+                </div>
+            </div>
+            <div class="adventure-tagline">Since 2022 • Together, Anywhere</div>
+        </div>
     </div>
 
     <script>
-        // Dummy Data Store
-        const dataStore = {
-            'All': [
-                { code: 'VN-101', client: 'Global Beverage Ltd', group: 'F&B', status: 'SENT', fees: '$4,500', a: 'Ready', b: 'Pending' },
-                { code: 'AU-202', client: 'TechSolutions', group: 'IT', status: 'PENDING', fees: '$2,100', a: 'Ready', b: 'Ready' },
-                { code: 'SG-303', client: 'Oceanic Log', group: 'Logistics', status: 'GENERATED', fees: '$5,800', a: 'In Progress', b: 'N/A' }
-            ],
-            'Pending': [
-                { code: 'AU-202', client: 'TechSolutions', group: 'IT', status: 'PENDING', fees: '$2,100', a: 'Ready', b: 'Ready' },
-                { code: 'ID-991', client: 'Bali Resorts', group: 'Leisure', status: 'PENDING', fees: '$9,200', a: 'In Progress', b: 'Pending' }
-            ],
-            'Updated': [
-                { code: 'HK-404', client: 'Peak Finance', group: 'Banking', status: 'UPDATED', fees: '$12,000', a: 'Ready', b: 'Ready' }
-            ],
-            'Generated': [
-                { code: 'SG-303', client: 'Oceanic Log', group: 'Logistics', status: 'GENERATED', fees: '$5,800', a: 'In Progress', b: 'N/A' }
-            ],
-            'Sent': [
-                { code: 'VN-101', client: 'Global Beverage Ltd', group: 'F&B', status: 'SENT', fees: '$4,500', a: 'Ready', b: 'Pending' }
-            ],
-            'No SA': [
-                { code: 'MY-707', client: 'KL Manufacturing', group: 'Industrial', status: 'NO SA', fees: '$0', a: 'Not Started', b: 'Not Started' }
-            ]
+        // YouTube Player API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'Y4f8-1M2S_Y', // Head In The Clouds - 88rising
+                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Y4f8-1M2S_Y' },
+                events: { 'onReady': onPlayerReady }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is loaded and ready
+        }
+
+        function startJourney() {
+            player.playVideo();
+            document.getElementById('startBtn').style.opacity = '0';
+            setTimeout(() => { document.getElementById('startBtn').style.display = 'none'; }, 300);
+        }
+
+        // Logic for File Upload and Scrolling
+        const imgElement = document.getElementById('finalImg');
+        const btnElement = document.getElementById('uploadBtn');
+        const controls = document.getElementById('controls');
+
+        window.onload = () => {
+            const savedImg = localStorage.getItem('finaleImage');
+            if (savedImg) showImage(savedImg);
         };
 
-        // Function to switch tabs
-        function switchTab(category) {
-            // Update Tab UI
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            // Update Table
-            renderTable(category);
+        function handleFile(input) {
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                localStorage.setItem('finaleImage', e.target.result);
+                showImage(e.target.result);
+            };
+            if (file) reader.readAsDataURL(file);
         }
 
-        // Function to render rows
-        function renderTable(category) {
-            const tbody = document.getElementById('table-body');
-            const clients = dataStore[category] || [];
-            
-            tbody.innerHTML = ''; // Clear current table
-            
-            clients.forEach(item => {
-                const row = `<tr>
-                    <td>${item.code}</td>
-                    <td><strong>${item.client}</strong></td>
-                    <td>${item.group}</td>
-                    <td><span class="status-pill">${item.status}</span></td>
-                    <td>${item.fees}</td>
-                    <td>${item.a}</td>
-                    <td>${item.b}</td>
-                </tr>`;
-                tbody.innerHTML += row;
-            });
-
-            document.getElementById('client-count').innerText = `${clients.length} clients shown`;
+        function showImage(src) {
+            imgElement.src = src;
+            imgElement.style.display = "block";
+            btnElement.style.display = "none"; 
+            controls.style.display = "flex";
         }
 
-        // Basic Filter
-        function filterTable() {
-            let input = document.getElementById('elSearch').value.toLowerCase();
-            let rows = document.getElementById('table-body').getElementsByTagName('tr');
-            for (let row of rows) {
-                row.style.display = row.textContent.toLowerCase().includes(input) ? "" : "none";
+        function resetFinale() {
+            localStorage.removeItem('finaleImage');
+            imgElement.style.display = "none";
+            btnElement.style.display = "block";
+            controls.style.display = "none";
+        }
+
+        function sendEmail() {
+            window.location.href = `mailto:eric.yukan@gmail.com?subject=Our New Journey Destination&body=I updated the roadmap! Check it out.`;
+        }
+
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                window.scrollBy({ left: e.deltaY * 3, behavior: 'auto' });
             }
-        }
-
-        // Initialize with 'All' data
-        window.onload = () => renderTable('All');
+        }, { passive: false });
     </script>
 </body>
 </html>
