@@ -3,251 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ascentium | Global Sales Gateway</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <title>EL Manager | Interactive Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* --- CSS (The Style) --- */
         :root {
-            --primary: #002147; /* Ascentium Navy */
-            --accent: #00a3e0;  /* Bright Blue */
-            --bg: #f4f7f9;
-            --text: #333;
-            --white: #ffffff;
+            --primary-orange: #ff5a00;
+            --bg-light: #f9fafb;
+            --border-color: #e5e7eb;
+            --text-main: #111827;
+            --text-muted: #6b7280;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: #ffffff;
+            color: var(--text-main);
             margin: 0;
             padding: 0;
         }
 
-        .navbar {
-            background: var(--white);
-            padding: 15px 5%;
+        /* Top Header Bar */
+        .header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            padding: 12px 24px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .logo {
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            background: var(--primary-orange);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .header-title {
             font-weight: 600;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .sync-info {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Tabs Section */
+        .tabs-container {
+            padding: 10px 24px;
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        .tab {
+            font-size: 13px;
+            padding: 8px 0;
+            cursor: pointer;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover { color: var(--text-main); }
+
+        .tab.active {
+            color: var(--primary-orange);
+            border-bottom: 2px solid var(--primary-orange);
+            font-weight: 600;
+        }
+
+        .tab-count {
+            background: #eee;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            color: var(--text-main);
+        }
+
+        .tab.active .tab-count {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        /* Search Area */
+        .search-area {
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-input {
+            width: 350px;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        /* Table Section */
+        .table-container { width: 100%; overflow-x: auto; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+        th {
+            text-align: left;
+            padding: 12px 24px;
+            background: #fafafa;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-color);
             text-transform: uppercase;
         }
 
-        .logo span {
-            color: var(--accent);
-            font-weight: 300;
-            margin-left: 5px;
-        }
+        td { padding: 12px 24px; border-bottom: 1px solid var(--border-color); }
 
-        .hero {
-            background: var(--primary);
-            color: var(--white);
-            text-align: center;
-            padding: 60px 20px 100px;
-        }
-
-        .hero h1 {
-            margin: 0;
-            font-size: 2.5rem;
+        .status-pill {
+            background: #f3f4f6;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
             font-weight: 600;
         }
 
-        .hero p {
-            font-weight: 300;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 10px auto 0;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: -50px auto 50px;
-            padding: 0 20px;
-        }
-
-        .search-container {
-            margin-bottom: 30px;
-        }
-
-        #countrySearch {
-            width: 100%;
-            padding: 18px 25px;
-            border-radius: 50px;
-            border: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            font-size: 16px;
-            outline: none;
-            box-sizing: border-box;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid #e1e8ed;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,33,71,0.1);
-            border-color: var(--accent);
-        }
-
-        .card h3 {
-            margin: 0 0 10px 0;
-            color: var(--primary);
-            font-size: 1.4rem;
-        }
-
-        .card p {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .brand-tag {
-            font-size: 0.75rem;
-            background: #f0f4f8;
+        .btn {
             padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: 600;
-            color: var(--primary);
-            align-self: flex-start;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
         }
 
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-            font-size: 0.85rem;
-        }
+        .btn-orange { background: var(--primary-orange); color: white; border: none; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">ASCENTIUM<span>SALES GATEWAY</span></div>
-    </nav>
-
-    <header class="hero">
-        <h1>Global Network</h1>
-        <p>Access local expertise and regional compliance portals across the Ascentium ecosystem.</p>
-    </header>
-
-    <main class="container">
-        <div class="search-container">
-            <input type="text" id="countrySearch" placeholder="Search by country or region..." onkeyup="filterCountries()">
+    <div class="header">
+        <div class="logo-section">
+            <div class="logo-icon">EL</div>
+            <span class="header-title">EL Manager | <span style="font-weight: 300; color: #666;">Automation 2026</span></span>
         </div>
-
-        <div class="grid" id="countryGrid">
-            <a href="https://incorp.asia/singapore/" class="card" target="_blank">
-                <div>
-                    <h3>Singapore</h3>
-                    <p>Corporate services, tax, and payroll outsourcing in Asia's financial hub.</p>
-                </div>
-                <span class="brand-tag">InCorp Singapore</span>
-            </a>
-
-            <a href="https://incorp.asia/australia/" class="card" target="_blank">
-                <div>
-                    <h3>Australia</h3>
-                    <p>Expansion support, accounting, and tax compliance for the Australian market.</p>
-                </div>
-                <span class="brand-tag">InCorp Australia</span>
-            </a>
-
-            <a href="https://linksinternational.com/hong-kong-hr-outsourcing/" class="card" target="_blank">
-                <div>
-                    <h3>Hong Kong</h3>
-                    <p>Specialized HR, payroll, and fund administration services.</p>
-                </div>
-                <span class="brand-tag">Links International</span>
-            </a>
-
-            <a href="https://incorp.asia/vietnam/" class="card" target="_blank">
-                <div>
-                    <h3>Vietnam</h3>
-                    <p>FDI advisory, company incorporation, and licensing experts.</p>
-                </div>
-                <span class="brand-tag">InCorp Vietnam</span>
-            </a>
-
-            <a href="https://vz.ae/" class="card" target="_blank">
-                <div>
-                    <h3>UAE</h3>
-                    <p>The leading platform for company setup and licensing in Dubai and the UAE.</p>
-                </div>
-                <span class="brand-tag">Virtuzone</span>
-            </a>
-
-            <a href="https://incorp.asia/malaysia/" class="card" target="_blank">
-                <div>
-                    <h3>Malaysia</h3>
-                    <p>Comprehensive company secretarial and business support services.</p>
-                </div>
-                <span class="brand-tag">InCorp Malaysia</span>
-            </a>
-
-            <a href="https://incorp.asia/philippines/" class="card" target="_blank">
-                <div>
-                    <h3>Philippines</h3>
-                    <p>Business registration and payroll support for the Philippine market.</p>
-                </div>
-                <span class="brand-tag">InCorp Philippines</span>
-            </a>
-
-            <a href="https://incorp.asia/indonesia/" class="card" target="_blank">
-                <div>
-                    <h3>Indonesia</h3>
-                    <p>Specialized support for market entry and local compliance in Indonesia.</p>
-                </div>
-                <span class="brand-tag">InCorp Indonesia</span>
-            </a>
+        <div class="sync-info">
+            <span id="sync-time">Last sync: Today, 08:17 am</span>
+            <button class="btn btn-orange">↑ Sync Excel</button>
         </div>
-    </main>
+    </div>
 
-    <footer>
-        &copy; 2026 Ascentium Group. Internal Use Only.
-    </footer>
+    <div class="tabs-container" id="tabs">
+        <div class="tab active" onclick="switchTab('All')">All <span class="tab-count">515</span></div>
+        <div class="tab" onclick="switchTab('Pending')">Pending <span class="tab-count">54</span></div>
+        <div class="tab" onclick="switchTab('Updated')">Updated <span class="tab-count">12</span></div>
+        <div class="tab" onclick="switchTab('Generated')">Generated <span class="tab-count">6</span></div>
+        <div class="tab" onclick="switchTab('Sent')">Sent <span class="tab-count">409</span></div>
+        <div class="tab" onclick="switchTab('No SA')">No SA <span class="tab-count">46</span></div>
+    </div>
+
+    <div class="search-area">
+        <input type="text" id="elSearch" class="search-input" placeholder="Search data..." onkeyup="filterTable()">
+        <span id="client-count" style="color: #999; font-size: 12px;">515 clients shown</span>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Code ↑</th>
+                    <th>Client</th>
+                    <th>Group</th>
+                    <th>Status</th>
+                    <th>Total Fees</th>
+                    <th>Company A</th>
+                    <th>Company B</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                </tbody>
+        </table>
+    </div>
 
     <script>
-        /* --- JavaScript (The Logic) --- */
-        function filterCountries() {
-            let input = document.getElementById('countrySearch').value.toLowerCase();
-            let cards = document.getElementsByClassName('card');
+        // Dummy Data Store
+        const dataStore = {
+            'All': [
+                { code: 'VN-101', client: 'Global Beverage Ltd', group: 'F&B', status: 'SENT', fees: '$4,500', a: 'Ready', b: 'Pending' },
+                { code: 'AU-202', client: 'TechSolutions', group: 'IT', status: 'PENDING', fees: '$2,100', a: 'Ready', b: 'Ready' },
+                { code: 'SG-303', client: 'Oceanic Log', group: 'Logistics', status: 'GENERATED', fees: '$5,800', a: 'In Progress', b: 'N/A' }
+            ],
+            'Pending': [
+                { code: 'AU-202', client: 'TechSolutions', group: 'IT', status: 'PENDING', fees: '$2,100', a: 'Ready', b: 'Ready' },
+                { code: 'ID-991', client: 'Bali Resorts', group: 'Leisure', status: 'PENDING', fees: '$9,200', a: 'In Progress', b: 'Pending' }
+            ],
+            'Updated': [
+                { code: 'HK-404', client: 'Peak Finance', group: 'Banking', status: 'UPDATED', fees: '$12,000', a: 'Ready', b: 'Ready' }
+            ],
+            'Generated': [
+                { code: 'SG-303', client: 'Oceanic Log', group: 'Logistics', status: 'GENERATED', fees: '$5,800', a: 'In Progress', b: 'N/A' }
+            ],
+            'Sent': [
+                { code: 'VN-101', client: 'Global Beverage Ltd', group: 'F&B', status: 'SENT', fees: '$4,500', a: 'Ready', b: 'Pending' }
+            ],
+            'No SA': [
+                { code: 'MY-707', client: 'KL Manufacturing', group: 'Industrial', status: 'NO SA', fees: '$0', a: 'Not Started', b: 'Not Started' }
+            ]
+        };
 
-            for (let i = 0; i < cards.length; i++) {
-                let text = cards[i].textContent.toLowerCase();
-                if (text.includes(input)) {
-                    cards[i].style.display = "";
-                } else {
-                    cards[i].style.display = "none";
-                }
+        // Function to switch tabs
+        function switchTab(category) {
+            // Update Tab UI
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Update Table
+            renderTable(category);
+        }
+
+        // Function to render rows
+        function renderTable(category) {
+            const tbody = document.getElementById('table-body');
+            const clients = dataStore[category] || [];
+            
+            tbody.innerHTML = ''; // Clear current table
+            
+            clients.forEach(item => {
+                const row = `<tr>
+                    <td>${item.code}</td>
+                    <td><strong>${item.client}</strong></td>
+                    <td>${item.group}</td>
+                    <td><span class="status-pill">${item.status}</span></td>
+                    <td>${item.fees}</td>
+                    <td>${item.a}</td>
+                    <td>${item.b}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+
+            document.getElementById('client-count').innerText = `${clients.length} clients shown`;
+        }
+
+        // Basic Filter
+        function filterTable() {
+            let input = document.getElementById('elSearch').value.toLowerCase();
+            let rows = document.getElementById('table-body').getElementsByTagName('tr');
+            for (let row of rows) {
+                row.style.display = row.textContent.toLowerCase().includes(input) ? "" : "none";
             }
         }
+
+        // Initialize with 'All' data
+        window.onload = () => renderTable('All');
     </script>
 </body>
 </html>
